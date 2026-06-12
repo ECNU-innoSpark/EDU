@@ -1,0 +1,447 @@
+<!--following /Users/l/other_git_repos/TeaCH-main/website/template/Humanity's Last Exam.html, adapt its content to EDU /Users/l/other_git_repos/TeaCH-main/nature/main.pdf-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EDU 1.0 — Educational Due Diligence for Foundation Models</title>
+<meta name="description" content="EDU 1.0 is an educational due-diligence benchmark for certifying foundation models for professional education, built from authentic teacher certification examinations in China, the United States, and India.">
+<style>
+  :root {
+    --ink: #20252b;
+    --muted: #69727d;
+    --line: #e2e8f0;
+    --edu: #0b7a75;
+    --edu-dark: #075753;
+    --china: #c9565a;
+    --usa: #4679a8;
+    --india: #c78a2c;
+    --bg-soft: #f8fafb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, "PingFang SC", sans-serif;
+    color: var(--ink);
+    background: #ffffff;
+    line-height: 1.65;
+  }
+  a { color: var(--edu); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Hero ── */
+  header.hero {
+    text-align: center;
+    padding: 72px 24px 40px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--bg-soft) 0%, #ffffff 100%);
+  }
+  .hero .logo {
+    width: 84px; height: 84px; margin: 0 auto 18px;
+    border-radius: 20px;
+    background: var(--edu);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px; font-weight: 800; letter-spacing: -1px;
+  }
+  .hero h1 { font-size: 40px; margin: 0 0 6px; letter-spacing: -0.5px; }
+  .hero p.subtitle { font-size: 19px; color: var(--muted); margin: 0 0 28px; }
+  .btn-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 20px; border-radius: 999px;
+    border: 1px solid var(--ink);
+    color: var(--ink); font-size: 14.5px; font-weight: 600;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: var(--ink); color: #fff; text-decoration: none; }
+  .btn.primary { background: var(--edu); border-color: var(--edu); color: #fff; }
+  .btn.primary:hover { background: var(--edu-dark); border-color: var(--edu-dark); }
+
+  /* ── News ── */
+  section.news { padding: 36px 0 8px; }
+  .news h2 { font-size: 22px; margin-bottom: 14px; }
+  .news ul { list-style: none; padding: 0; margin: 0; }
+  .news li { padding: 7px 0; font-size: 15.5px; border-bottom: 1px dashed var(--line); }
+  .news .date { font-weight: 700; color: var(--edu); margin-right: 6px; white-space: nowrap; }
+
+  /* ── Generic sections ── */
+  section { padding: 36px 0; }
+  section h2 {
+    font-size: 26px; margin: 0 0 16px;
+    padding-bottom: 8px; border-bottom: 2px solid var(--edu);
+    display: inline-block;
+  }
+  section p { font-size: 16px; }
+  .lead strong { color: var(--edu-dark); }
+
+  /* ── Stat cards ── */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin: 22px 0; }
+  .stat {
+    background: var(--bg-soft); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 16px; text-align: center;
+  }
+  .stat .num { font-size: 28px; font-weight: 800; color: var(--edu); }
+  .stat .lbl { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Example question cards ── */
+  .examples { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
+  @media (max-width: 720px) { .examples { grid-template-columns: 1fr; } }
+  .qcard {
+    border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    background: #fff;
+  }
+  .qcard .qhead {
+    padding: 10px 16px; font-weight: 700; font-size: 14px; color: #fff;
+  }
+  .qcard .qhead.cn { background: var(--china); }
+  .qcard .qhead.us { background: var(--usa); }
+  .qcard .qbody { padding: 16px; font-size: 14.5px; }
+  .qcard .qbody .qlabel { font-weight: 700; color: var(--edu-dark); }
+  .qcard .qmeta { padding: 0 16px 14px; font-size: 12.5px; color: var(--muted); }
+  .figcap { font-size: 13.5px; color: var(--muted); margin-top: 10px; }
+
+  /* ── Leaderboard ── */
+  .tablewrap { overflow-x: auto; margin-top: 10px; }
+  table.board { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  .board th, .board td { padding: 9px 12px; text-align: center; white-space: nowrap; }
+  .board thead th {
+    background: var(--ink); color: #fff; font-size: 13px; font-weight: 600;
+    position: sticky; top: 0;
+  }
+  .board tbody tr:nth-child(even) { background: var(--bg-soft); }
+  .board tbody tr:hover { background: #eef6f5; }
+  .board td:first-child, .board th:first-child { text-align: left; font-weight: 600; }
+  .board .top { color: var(--edu-dark); font-weight: 800; }
+  .board .low { color: var(--china); }
+  .tablenote { font-size: 13px; color: var(--muted); margin-top: 8px; }
+  .subsec { margin-top: 34px; }
+  .subsec h3 {
+    font-size: 19px; margin: 0 0 10px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .subsec h3 .flagchip {
+    display: inline-block; padding: 2px 10px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; color: #fff; white-space: nowrap;
+  }
+  .flagchip.cn { background: var(--china); }
+  .flagchip.us { background: var(--usa); }
+  .flagchip.in { background: var(--india); }
+
+  /* ── Findings ── */
+  .finding { margin: 18px 0; padding-left: 16px; border-left: 3px solid var(--edu); }
+  .finding h3 { margin: 0 0 6px; font-size: 17px; }
+  .finding p { margin: 0; font-size: 15.5px; color: #3a4149; }
+
+  /* ── Citation ── */
+  pre.bibtex {
+    background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px; font-size: 13px; overflow-x: auto;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 28px 24px 48px; text-align: center;
+    color: var(--muted); font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ Hero ═══════════════ -->
+<header class="hero">
+  <div class="logo">EDU</div>
+  <h1>EDU&nbsp;1.0</h1>
+  <p class="subtitle">Educational Due Diligence for Foundation Models</p>
+  <div class="btn-row">
+    <a class="btn primary" href="../../nature/main.pdf">📄 Paper</a>
+    <a class="btn" href="#dataset">🗂 Dataset</a>
+    <a class="btn" href="#leaderboard">🏆 Leaderboard</a>
+    <a class="btn" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</header>
+
+<!-- ═══════════════ Latest News ═══════════════ -->
+<section class="news">
+  <div class="container">
+    <h2>Latest News</h2>
+    <ul>
+      <li><span class="date">[2026]</span> EDU 1.0 expands cross-national coverage: India Teacher Eligibility Test (TET) evaluation added with 3,463 MCQs across SED and PGT tiers.</li>
+      <li><span class="date">[2026]</span> Full evaluation of seven frontier MLLMs released, covering written modules (S1–S3), structured interviews, and teaching demonstrations.</li>
+      <li><span class="date">[2025]</span> EDU 1.0 finalized with <strong>7,496 questions</strong> from China's NTQE and the U.S. Praxis series, with ongoing expansion to France's CAPES and India's teacher certification exams.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════ Introduction ═══════════════ -->
+<section id="introduction">
+  <div class="container">
+    <h2>Introduction</h2>
+    <p class="lead">
+      Large language models (LLMs) and multimodal LLMs (MLLMs) are increasingly deployed in educational
+      roles, yet no benchmark systematically evaluates whether they can meet the rigorous standards of
+      real teacher certification. We introduce <strong>EDU&nbsp;1.0</strong>
+      (<em>Educational Due Diligence for Foundation Models</em>), an educational due-diligence benchmark
+      for certifying foundation models for professional education.
+    </p>
+    <p>
+      Unlike existing education benchmarks that rely on synthetic data and static evaluation, EDU&nbsp;1.0
+      features six distinctive properties: <strong>official exam provenance</strong>,
+      <strong>cross-national coverage</strong>, <strong>full certification pipeline</strong> (written + oral),
+      <strong>multimodal questions with images</strong>, <strong>interactive multi-agent classroom
+      simulation</strong>, and <strong>adversarial moral dilemma probing</strong>.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ Dataset ═══════════════ -->
+<section id="dataset" style="background: var(--bg-soft);">
+  <div class="container">
+    <h2>Dataset</h2>
+    <p>
+      EDU&nbsp;1.0 is built from authentic, standardized, multi-national teacher certification
+      examinations: China's <strong>National Teacher Qualification Examination (NTQE)</strong>
+      spanning three written modules — comprehensive quality (S1), pedagogical knowledge (S2), and
+      subject knowledge &amp; teaching ability (S3) — plus structured interviews and simulated classroom
+      teaching; the U.S. <strong>Praxis series</strong> (Core, PLT, and eight subject assessments); and
+      India's <strong>Teacher Eligibility Test</strong> (SED and PGT tiers).
+    </p>
+    <div class="stats">
+      <div class="stat"><div class="num">7,496</div><div class="lbl">core questions (NTQE + Praxis)</div></div>
+      <div class="stat"><div class="num">6,439</div><div class="lbl">China NTQE (2011–2025)</div></div>
+      <div class="stat"><div class="num">1,057</div><div class="lbl">U.S. Praxis series</div></div>
+      <div class="stat"><div class="num">3,463</div><div class="lbl">India TET MCQs</div></div>
+      <div class="stat"><div class="num">13</div><div class="lbl">secondary subjects</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">certification stages</div></div>
+    </div>
+    <p>
+      All national modules map into a <strong>cross-national Universal Classification Framework</strong>
+      with four unified dimensions: comprehensive quality, pedagogical knowledge, subject knowledge,
+      and teaching demonstration.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ Examples ═══════════════ -->
+<section id="examples">
+  <div class="container">
+    <h2>Examples</h2>
+    <div class="examples">
+      <div class="qcard">
+        <div class="qhead cn">China · NTQE S3 — Subject Knowledge &amp; Teaching Ability (Mathematics)</div>
+        <div class="qbody">
+          <span class="qlabel">Instructional design:</span>
+          Based on the lesson "Properties of Quadratic Functions" for Grade 9, design a 10-minute
+          teaching segment that includes clear learning objectives, a guided-discovery activity, and
+          at least one formative assessment checkpoint. Explain how your design addresses common
+          student misconceptions about the vertex form.
+        </div>
+        <div class="qmeta">Scored by a three-judge LLM-as-Judge ensemble against official rubrics.</div>
+      </div>
+      <div class="qcard">
+        <div class="qhead us">United States · Praxis PLT (Grades 7–12)</div>
+        <div class="qbody">
+          <span class="qlabel">Question:</span>
+          A teacher notices that students consistently perform well on recall items but struggle with
+          questions requiring transfer to novel contexts. Which instructional adjustment is most
+          consistent with constructivist learning theory? (Four-option MCQ drawn from official ETS
+          study companions.)
+        </div>
+        <div class="qmeta">Exact-match scoring against the standard answer key.</div>
+      </div>
+    </div>
+    <p class="figcap">Representative question formats in EDU&nbsp;1.0, spanning multiple-choice, case analysis, instructional design, structured interview, and teaching demonstration tasks — including multimodal questions with images, diagrams, and formulas.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ Leaderboard ═══════════════ -->
+<section id="leaderboard" style="background: var(--bg-soft);">
+  <div class="container">
+    <h2>Quantitative Results</h2>
+    <p>
+      We evaluate seven frontier MLLMs across the three national examination systems.
+      MCQ is scored by exact match; subjective questions are scored by an LLM-as-Judge framework
+      with three independent judges (ensemble rank agreement with human experts:
+      Spearman ρ = 0.853, Kendall τ<sub>b</sub> = 0.780).
+    </p>
+
+    <!-- ── China · NTQE ── -->
+    <div class="subsec" id="results-ntqe">
+      <h3><span class="flagchip cn">China</span> NTQE — Written Modules &amp; Oral Stage</h3>
+      <p>
+        All seven models are near-ceiling on comprehensive quality (S1) and pedagogical knowledge (S2),
+        but every model drops 5.6–8.2 percentage points on subject knowledge &amp; teaching ability (S3) —
+        identifying discipline-specific content knowledge and pedagogical content knowledge (PCK) as the
+        main written-examination bottleneck. The teaching demonstration is the most discriminative
+        component, with an 80.7-point gap between the strongest and weakest models.
+      </p>
+      <div class="tablewrap">
+        <table class="board">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>S1 Total (%) ↑</th>
+              <th>S2 Total (%) ↑</th>
+              <th>S3 Total (%) ↑</th>
+              <th>Interview (%) ↑</th>
+              <th>Teaching Demo (%) ↑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Gemini 3.1 Pro</td><td class="top">96.9</td><td class="top">97.0</td><td class="top">91.4</td><td>97.9</td><td class="low">10.2</td></tr>
+            <tr><td>Gemini 3 Flash</td><td>96.8</td><td>96.7</td><td>88.5</td><td>97.7</td><td class="low">12.3</td></tr>
+            <tr><td>Qwen3.5-397B</td><td>96.6</td><td>95.9</td><td>89.6</td><td>97.5</td><td>90.1</td></tr>
+            <tr><td>Kimi-K25</td><td>94.7</td><td>96.3</td><td>88.8</td><td class="top">98.2</td><td class="top">90.9</td></tr>
+            <tr><td>GLM-4.6V</td><td>94.6</td><td>92.6</td><td>86.0</td><td>97.1</td><td class="low">26.4</td></tr>
+            <tr><td>Claude Sonnet 4.6</td><td>92.5</td><td>94.1</td><td>87.3</td><td>97.0</td><td>86.0</td></tr>
+            <tr><td>GPT-5.2</td><td>91.9</td><td>92.7</td><td>85.9</td><td>97.8</td><td>34.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tablenote">
+        Totals are weighted overall scores combining MCQ and subjective questions.
+        Interview = structured interview; Demo = teaching demonstration (3-judge average over the same
+        119 tasks). Sorted by S1 total.
+      </p>
+    </div>
+
+    <!-- ── United States · Praxis ── -->
+    <div class="subsec" id="results-praxis">
+      <h3><span class="flagchip us">United States</span> Praxis — Core, PLT &amp; Subject Assessments</h3>
+      <p>
+        Praxis Core provides the strongest separation among models: Core totals span 76.3–99.5%,
+        a far wider spread than China's S1 (6.5 points), driven primarily by quantitative reasoning
+        and writing. PLT and Subject performance is consistently high; every model receives 100.0%
+        on the small PLT constructed-response subset, indicating a ceiling effect.
+      </p>
+      <div class="tablewrap">
+        <table class="board">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Core Total (%) ↑</th>
+              <th>PLT Total (%) ↑</th>
+              <th>Subject MCQ (%) ↑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Gemini 3.1 Pro</td><td class="top">99.5</td><td class="top">98.8</td><td class="top">98.4</td></tr>
+            <tr><td>Gemini 3 Flash</td><td>91.6</td><td>96.5</td><td>95.5</td></tr>
+            <tr><td>Claude Sonnet 4.6</td><td>86.6</td><td>93.6</td><td>92.2</td></tr>
+            <tr><td>Qwen3.5-397B</td><td>85.1</td><td>95.4</td><td>95.7</td></tr>
+            <tr><td>Kimi-K25</td><td>83.8</td><td>93.1</td><td>94.3</td></tr>
+            <tr><td>GLM-4.6V</td><td class="low">77.0</td><td>91.3</td><td>91.0</td></tr>
+            <tr><td>GPT-5.2</td><td class="low">76.3</td><td>94.2</td><td>87.8</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tablenote">
+        Core and PLT totals are weighted scores (70% MCQ + 30% subjective); Praxis Subject contains
+        no subjective questions, so only MCQ accuracy is reported. Analysis set: 2,121 MCQs and
+        16 subjective questions. Sorted by Core total.
+      </p>
+    </div>
+
+    <!-- ── India · TET ── -->
+    <div class="subsec" id="results-tet">
+      <h3><span class="flagchip in">India</span> TET — State Eligibility (SED) &amp; PGT Recruitment</h3>
+      <p>
+        Overall accuracy spans 79.9–97.0% on 3,463 MCQs, varying substantially by model but not
+        systematically by examination tier. Hindi reveals a strongly model-dependent language
+        alignment gap — accuracy spans 60.2–97.9%, the widest range of any high-volume subject —
+        that English-only evaluation would miss.
+      </p>
+      <div class="tablewrap">
+        <table class="board">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>SED (%) ↑</th>
+              <th>PGT (%) ↑</th>
+              <th>Hindi (%) ↑</th>
+              <th>Overall (%) ↑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Gemini 3.1 Pro</td><td class="top">97.3</td><td class="top">96.3</td><td class="top">97.9</td><td class="top">97.0</td></tr>
+            <tr><td>Gemini 3 Flash</td><td>95.7</td><td>94.3</td><td>96.3</td><td>95.3</td></tr>
+            <tr><td>Qwen3.5-397B</td><td>91.7</td><td>93.4</td><td>80.5</td><td>92.2</td></tr>
+            <tr><td>Claude Sonnet 4.6</td><td>89.6</td><td>89.6</td><td>84.3</td><td>89.6</td></tr>
+            <tr><td>Kimi-K25</td><td>89.0</td><td>90.4</td><td class="low">74.5</td><td>89.4</td></tr>
+            <tr><td>GLM-4.6V</td><td>81.0</td><td>86.1</td><td class="low">60.2</td><td>82.6</td></tr>
+            <tr><td>GPT-5.2</td><td>80.0</td><td>79.7</td><td class="low">66.5</td><td>79.9</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tablenote">
+        The Indian TET is exclusively MCQ-based (no subjective or interview component), administered
+        bilingually in English and Hindi. SED = State Eligibility Examination (2,431 questions);
+        PGT = Post Graduate Teacher recruitment (1,032 questions). Sorted by overall accuracy.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ Discussion ═══════════════ -->
+<section id="discussion">
+  <div class="container">
+    <h2>Key Findings</h2>
+
+    <div class="finding">
+      <h3>Subject knowledge is the written-exam bottleneck</h3>
+      <p>S1 totals range from 91.9% to 96.9% and S2 from 92.6% to 97.0%, but S3 totals fall to
+      85.9–91.4%. Chemistry is the weakest discipline (75.4–89.0%), followed by Physics.
+      Image-based questions further degrade MCQ accuracy by 15–20 percentage points, highlighting
+      persistent multimodal reasoning challenges.</p>
+    </div>
+
+    <div class="finding">
+      <h3>Teaching demonstration is the most discriminative component</h3>
+      <p>While structured-interview scores cluster within a 1.2-point ceiling band (95–98%),
+      teaching-demonstration scores span an 80.7-point gap: Kimi-K25 (90.9%), Qwen3.5-397B (90.1%),
+      and Claude Sonnet 4.6 (86.0%) successfully generate complete lesson scripts, whereas
+      Gemini 3.1 Pro (10.2%) and Gemini 3 Flash (12.3%) frequently fail to recognize the pedagogical
+      task structure.</p>
+    </div>
+
+    <div class="finding">
+      <h3>Cross-national evaluation exposes distinct capability profiles</h3>
+      <p>Praxis Core separates models far more than China's S1 (a 25.3- vs. 6.5-point spread), with
+      quantitative reasoning the primary differentiator. On India's TET, Hindi accuracy spans
+      60.2–97.9% across models, revealing a strongly model-dependent language alignment gap that
+      English-only evaluation would miss.</p>
+    </div>
+
+    <div class="finding">
+      <h3>Why due diligence, not just benchmarking</h3>
+      <p>Teacher certification is the institutional standard societies use to decide who may teach.
+      Applying the same full pipeline — written examinations, structured interviews, and simulated
+      classroom teaching with adversarial moral dilemma probing — provides an institutional basis for
+      deciding whether foundation models are fit for educational deployment, before they reach
+      classrooms serving hundreds of millions of students.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ Citation ═══════════════ -->
+<section id="citation" style="background: var(--bg-soft);">
+  <div class="container">
+    <h2>Citation</h2>
+<pre class="bibtex">@article{edu2026,
+  title  = {Certifying Foundation Models for Professional Education},
+  author = {{EDU 1.0 Contributors}},
+  year   = {2026},
+  note   = {EDU 1.0: Educational Due Diligence for Foundation Models},
+}</pre>
+  </div>
+</section>
+
+<footer>
+  EDU 1.0 — Educational Due Diligence for Foundation Models.<br>
+  For any inquiries or feedback, please contact the organizing team.
+</footer>
+
+</body>
+</html>
