@@ -210,9 +210,6 @@
     </p>
     <div class="stats">
       <div class="stat"><div class="num">7,496</div><div class="lbl">core questions (NTQE + Praxis)</div></div>
-      <div class="stat"><div class="num">6,439</div><div class="lbl">China NTQE (2011–2025)</div></div>
-      <div class="stat"><div class="num">1,057</div><div class="lbl">U.S. Praxis series</div></div>
-      <div class="stat"><div class="num">3,463</div><div class="lbl">India TET MCQs</div></div>
       <div class="stat"><div class="num">13</div><div class="lbl">secondary subjects</div></div>
       <div class="stat"><div class="num">5</div><div class="lbl">certification stages</div></div>
     </div>
@@ -390,37 +387,30 @@
     <h2>Key Findings</h2>
 
     <div class="finding">
-      <h3>Subject knowledge is the written-exam bottleneck</h3>
-      <p>S1 totals range from 91.9% to 96.9% and S2 from 92.6% to 97.0%, but S3 totals fall to
-      85.9–91.4%. Chemistry is the weakest discipline (75.4–89.0%), followed by Physics.
-      Image-based questions further degrade MCQ accuracy by 15–20 percentage points, highlighting
-      persistent multimodal reasoning challenges.</p>
+      <h3>Subjective ceiling effects in open-ended language tasks</h3>
+      <p>Open-ended tasks that primarily reward fluent professional language show limited
+      discrimination. Structured-interview scores cluster between 97.0% and 98.2%, and every model
+      receives 100.0% on the evaluated Praxis PLT subjective questions. This saturation may reflect
+      both the ability of frontier models to generate conventional professional responses and the
+      tendency of rubric-based LLM judges to reward well-formed answers.</p>
     </div>
 
     <div class="finding">
-      <h3>Teaching demonstration is the most discriminative component</h3>
-      <p>While structured-interview scores cluster within a 1.2-point ceiling band (95–98%),
-      teaching-demonstration scores span an 80.7-point gap: Kimi-K25 (90.9%), Qwen3.5-397B (90.1%),
-      and Claude Sonnet 4.6 (86.0%) successfully generate complete lesson scripts, whereas
-      Gemini 3.1 Pro (10.2%) and Gemini 3 Flash (12.3%) frequently fail to recognize the pedagogical
-      task structure.</p>
+      <h3>The pedagogy–subject knowledge gap</h3>
+      <p>On the Chinese NTQE, every evaluated model performs better on pedagogical knowledge
+      (S2 totals: 92.6–97.0%) than on subject knowledge and teaching ability
+      (S3 totals: 85.9–91.4%), with a consistent 5.6–8.2 percentage point decline. This asymmetry
+      suggests that general educational principles are more readily reproduced than the integration
+      of discipline-specific content with pedagogical content knowledge.</p>
     </div>
 
     <div class="finding">
-      <h3>Cross-national evaluation exposes distinct capability profiles</h3>
-      <p>Praxis Core separates models far more than China's S1 (a 25.3- vs. 6.5-point spread), with
-      quantitative reasoning the primary differentiator. On India's TET, Hindi accuracy spans
-      60.2–97.9% across models, revealing a strongly model-dependent language alignment gap that
-      English-only evaluation would miss.</p>
-    </div>
-
-    <div class="finding">
-      <h3>Why due diligence, not just benchmarking</h3>
-      <p>Teacher certification is the institutional standard societies use to decide who may teach.
-      Applying the same full pipeline — written examinations, structured interviews, and simulated
-      classroom teaching with adversarial moral dilemma probing — provides an institutional basis for
-      deciding whether foundation models are fit for educational deployment, before they reach
-      classrooms serving hundreds of millions of students.</p>
+      <h3>Model-dependent language alignment</h3>
+      <p>Hindi produces the widest subject-level spread in the Indian evaluation (60.2–97.9%).
+      GLM-4.6V and GPT-5.2 score 29.9 and 20.4 points lower on Hindi than on English, respectively,
+      whereas Gemini 3 Flash and Gemini 3.1 Pro remain above 96% on Hindi. Educational competence
+      in non-dominant languages is therefore strongly model-dependent rather than uniformly weak,
+      reinforcing the need for multilingual certification before deployment.</p>
     </div>
   </div>
 </section>
