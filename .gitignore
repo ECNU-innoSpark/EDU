@@ -1,0 +1,16 @@
+# 凭据：.env 保存真实 key，绝不入库；.env.example 只有占位符，需要提交
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 编辑器 / 系统
+.idea/
+.vscode/
+.DS_Store
